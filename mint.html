@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Around The World by Gabriel Georgescu</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="css/settings.css">
+    <link rel="stylesheet" type="text/css" href="css/layers.css">
+    <link rel="stylesheet" type="text/css" href="css/navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/purple.css">
+</head>
+<body>
+<div class="content-wrapper">
+    <nav class="navbar wide transparent absolute inverse-text text-uppercase navbar-expand-lg">
+        <div class="container-fluid flex-row justify-content-center">
+            <div class="navbar-header">
+                <div class="navbar-brand"><a href="/"><img src="#"
+                                                           srcset="images/logo2-light.png 1x, images/logo2-light@2x.png 2x"
+                                                           alt=""/></a></div>
+                <div class="navbar-hamburger ml-auto d-lg-none d-xl-none">
+                    <button class="hamburger animate" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span></span></button>
+                </div>
+            </div>
+            <!-- /.navbar-header -->
+            <div class="navbar-collapse collapse justify-content-between align-items-center">
+                <ul class="navbar-nav plain mx-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html#top">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html#sneak_peek">Sneak Peek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html#roadmap">Roadmap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html#team">Team</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="social-wrapper text-right">
+                <ul class="social social-mute social-s mb-0">
+                    <li>
+                        <a href="https://opensea.io/collection/around-the-world-by-gabriel-georgescu" target="_blank">
+                            <img src="https://storage.googleapis.com/opensea-static/Logomark/Logomark-Transparent%20White.png" height="22"  alt="opensea"/>
+                        </a>
+                    </li>
+                    <li><a href="https://www.facebook.com/gabygeorgescuphotography/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.instagram.com/georgescugabrielphotography/" target="_blank"><i
+                            class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://twitter.com/ATWGG_NFT" target="_blank"><i
+                            class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://discord.gg/62vJuHpvY7" target="_blank"><i class="fab fa-discord"></i></a></li>
+                </ul>
+            </div>
+            <!--/.social-wrapper -->
+        </div>
+    </nav>
+    <div class="wrapper image-wrapper bg-image inverse-text" data-image-src="images/roadmap.jpg" style="background-image: url('images/roadmap.jpg');">
+        <div class="container inner pt-120 pb-120">
+            <h2 class="section-title mb-40 text-center">Mint</h2>
+            <div class="row">
+                <div class="card text-white bg-dark mb-3 col-md-12 col-xs-12 col-lg-12 p-0">
+                    <div class="card-header">
+                        Whitelist Mint
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Price: 0.08 ETH</h2>
+                        <h3 id="supply" class="text-center">Available: 0/6,999</h3>
+                        <label for="quantity" class="text-center col-md-12 col-xs-12 col-lg-12">
+                            Quantity: <span class="text-span-7">4 Mint Per Wallet</span>
+                        </label>
+                        <select id="quantity" name="quantity" data-name="quantity" required="">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <h5 class="text-center"><span id="price"></span></h5>
+                        <div class="alert alert-success hidden" id="success">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="alert alert-danger hidden" id="fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <button class="btn btn-aqua" onclick="connect()" id="connect_wallet">Connect wallet</button>
+                        <button class="btn btn-pastel-blue hidden" onclick="mintToken()" id="mint_button">Mint</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.wrapper -->
+    <footer class="dark-wrapper inverse-text">
+        <div class="container inner">
+            <p class="text-center mb-0">&copy; 2022 Gabriel Georgescu. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.1.umd.min.js" type="text/javascript"></script>
+
+    <script>
+        const maxNFT = 4;
+        const buttonId = "connect";
+        const contractAddress = "0x3Ee2Bb0eCE09bDb3a390b5f9C0746C2f41491a4D";
+        const cost = 0.08;
+        const nftNumField = jQuery("#quantity");
+        jQuery(document).ready(function (){
+            jQuery("#supply").html("Sold: please connect");
+            nftNumField.change(function (){
+                jQuery("#price").html("Price: " + (cost * nftNumField.val()) + " ETH + gas");
+            })
+        });
+
+        const wl = true;
+
+        let supply = 20000
+
+        let nftNum = 1
+
+
+        function setNftNum() {
+            let str = nftNumField.val()
+            let n = Math.floor(Number(str))
+
+            if (n !== Infinity && String(n) === str && n > 0) {
+                if (n > maxNFT) {
+                    alert("Num of NFTs should be <= " + maxNFT.toString())
+                    nftNumField.val(4);
+                    nftNum = 4
+                    return false
+                } else nftNum = n
+            } else {
+                alert("Num of NFTs should be > 0")
+                nftNumField.val(1);
+                nftNum = 1
+                return false
+            }
+            return true
+        }
+
+        const abi = [
+            {
+                "inputs":[
+
+                ],
+                "name":"wlSaleIsActive",
+                "outputs":[
+                    {
+                        "internalType":"bool",
+                        "name":"",
+                        "type":"bool"
+                    }
+                ],
+                "stateMutability":"view",
+                "type":"function"
+            },
+            {
+                "inputs":[
+
+                ],
+                "name":"totalSupply",
+                "outputs":[
+                    {
+                        "internalType":"uint256",
+                        "name":"",
+                        "type":"uint256"
+                    }
+                ],
+                "stateMutability":"view",
+                "type":"function"
+            },
+            {
+                "inputs":[
+                    {
+                        "internalType":"uint256",
+                        "name":"amount",
+                        "type":"uint256"
+                    }
+                ],
+                "name":"mintTokenWlSale",
+                "outputs":[
+
+                ],
+                "stateMutability":"payable",
+                "type":"function"
+            },
+            {
+                "inputs":[
+                    {
+                        "internalType":"uint256",
+                        "name":"amount",
+                        "type":"uint256"
+                    }
+                ],
+                "name":"mintToken",
+                "outputs":[
+
+                ],
+                "stateMutability":"payable",
+                "type":"function"
+            },
+        ]
+        let signer
+        let provider
+        let proof = []
+
+        async function connect() {
+            if (!window.ethereum) {
+                alert("No wallet installed. Please install a wallet on the browser - MetaMask is preferred!")
+                return
+            }
+
+            provider = await new ethers.providers.Web3Provider(window.ethereum, "mainnet")
+            await provider.send("eth_requestAccounts", [])
+
+            signer = provider.getSigner()
+            let address = await signer.getAddress()
+
+            if (wl) {
+                let req = new XMLHttpRequest()
+                req.open("POST", 'https://1bmcx1sc46.execute-api.us-west-2.amazonaws.com/default/whitelist?add=' + address, true)
+                req.setRequestHeader("Content-Type", "application/json charset=UTF-8")
+                req.send()
+
+                req.onreadystatechange = function () {
+                    if (req.readyState == 4 && req.status == 200) {
+                        if (!req.response) alert("Address not whitelisted. Sorry, you can't mint")
+                        else {
+                            bt.innerHTML = "MINT TOKEN"
+                            bt.onclick = mintToken
+                            proof = req.response.split(',')
+                        }
+                    }
+                }
+            } else {
+                bt.innerHTML = "MINT TOKEN"
+                bt.onclick = mintToken
+            }
+
+            getSupply()
+            jQuery("#connect_wallet").hide();
+            jQuery("#mint_button").removeClass("hidden");
+        }
+
+        async function getSupply() {
+            let signer = provider.getSigner()
+            let address = await signer.getAddress()
+
+            let contract = new ethers.Contract(contractAddress, abi, signer)
+
+            contract.totalSupply().then((res) => {
+                jQuery("#supply").html("Sold: " + res + " / " + supply.toString());
+            })
+        }
+
+        async function mintToken() {
+            if (!setNftNum()) return
+
+            let contract = new ethers.Contract(contractAddress, abi, signer)
+            let overrides = {value: ethers.utils.parseEther((nftNum * cost).toString())}
+
+            contract.mintToken(nftNum, proof, overrides).then((res) => {
+                    alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
+                }
+            ).catch(function (e) {
+                if (JSON.stringify(e).indexOf("underlying network") > -1)
+                    alert("Sorry, seems your wallet is not connected to ethereum mainnet - are you connected instead to BSC?")
+                else if (JSON.stringify(e).indexOf("insufficient funds") > -1)
+                    alert("Sorry, seems your wallet doesn't have enough funds to make this purchase!")
+                else if (JSON.stringify(e).indexOf("Max NFT") > -1)
+                    alert("Sorry, purchase would exceed limit per wallet!")
+                else if (JSON.stringify(e).indexOf("would exceed max supply") > -1)
+                    alert("Sorry, sold out!")
+                else if (!e.message.split("rror=")[1]) alert("Sorry, we could not complete your transaction. " + e.message.split("rror=")[0])
+                else alert("Sorry, we could not complete your transaction. " + JSON.parse(e.message.split("rror=")[1].split(", method")[0]).message.replace("execution reverted: ", ""))
+            })
+        }
+    </script>
+</div>
+</body>
+</html>
