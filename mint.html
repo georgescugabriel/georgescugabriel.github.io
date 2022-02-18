@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="card text-white bg-dark mb-3 col-md-12 col-xs-12 col-lg-12 p-0">
                     <div class="card-header">
-                        Whitelist Mint
+                        <h1 class="text-center">Whitelist Mint</h1>
                     </div>
                     <div class="card-body">
                         <h2 class="card-title text-center">Price: 0.08 ETH</h2>
@@ -97,8 +97,8 @@
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        <button class="btn btn-aqua" onclick="connect()" id="connect_wallet">Connect wallet</button>
-                        <button class="btn btn-pastel-blue hidden" onclick="mintToken()" id="mint_button">Mint</button>
+                        <button class="btn btn-aqua col-md-12 col-xs-12 col-lg-12" onclick="connect()" id="connect_wallet">Connect wallet</button>
+                        <button class="btn btn-pastel-blue hidden col-md-12 col-xs-12 col-lg-12" onclick="mintToken()" id="mint_button">Mint token</button>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
 
         const wl = true;
 
-        let supply = 20000
+        let supply = 6999
 
         let nftNum = 1
 
@@ -234,25 +234,23 @@
             let address = await signer.getAddress()
 
             if (wl) {
-                let req = new XMLHttpRequest()
-                req.open("POST", 'https://1bmcx1sc46.execute-api.us-west-2.amazonaws.com/default/whitelist?add=' + address, true)
-                req.setRequestHeader("Content-Type", "application/json charset=UTF-8")
-                req.send()
-
-                req.onreadystatechange = function () {
-                    if (req.readyState == 4 && req.status == 200) {
-                        if (!req.response) alert("Address not whitelisted. Sorry, you can't mint")
-                        else {
-                            bt.innerHTML = "MINT TOKEN"
-                            bt.onclick = mintToken
-                            proof = req.response.split(',')
-                        }
-                    }
-                }
-            } else {
-                bt.innerHTML = "MINT TOKEN"
-                bt.onclick = mintToken
+                // let req = new XMLHttpRequest()
+                // req.open("POST", 'https://1bmcx1sc46.execute-api.us-west-2.amazonaws.com/default/whitelist?add=' + address, true)
+                // req.setRequestHeader("Content-Type", "application/json charset=UTF-8")
+                // req.send()
+                //
+                // req.onreadystatechange = function () {
+                //     if (req.readyState == 4 && req.status == 200) {
+                //         if (!req.response) alert("Address not whitelisted. Sorry, you can't mint")
+                //         else {
+                //             bt.innerHTML = "MINT TOKEN"
+                //             bt.onclick = mintToken
+                //             proof = req.response.split(',')
+                //         }
+                //     }
+                // }
             }
+
 
             getSupply()
             jQuery("#connect_wallet").hide();
@@ -276,7 +274,7 @@
             let contract = new ethers.Contract(contractAddress, abi, signer)
             let overrides = {value: ethers.utils.parseEther((nftNum * cost).toString())}
 
-            contract.mintToken(nftNum, proof, overrides).then((res) => {
+            contract.mintToken(nftNum, overrides).then((res) => {
                     alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
                 }
             ).catch(function (e) {
