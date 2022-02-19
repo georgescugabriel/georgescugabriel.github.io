@@ -347,7 +347,7 @@
             jQuery("#connect_wallet").hide();
 
             if (wl_sale) {
-                getWhitelistPrice();
+                cost = getWhitelistPrice();
                 getWhitelistTotalSupply();
                 getWhitelistLimit();
                 jQuery("#title_header").html("Whitelist Mint");
@@ -356,9 +356,9 @@
                 jQuery("#token_price").html(cost);
                 jQuery("#whitelist_max_supply").html("Max whitelist:" + wlMaxSale).removeClass("hidden");
                 is_whitelisted = isInWhitelist();
-            } else {
+            } else if(public_sale) {
                 maxNFT = 10;
-                getPublicSalePrice();
+                cost = getPublicSalePrice();
                 jQuery("#title_header").html("Public Sale Mint");
                 jQuery("#token_price").html(cost);
                 jQuery("#max_mint").html(maxNFT);
@@ -396,23 +396,26 @@
         }
 
         function getPublicSalePrice() {
+            let price;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
                 let value = convertWeiToEth(res.toString());
                 console.log(value);
-                cost = value;
+                price = value;
             })
         }
 
         function getWhitelistPrice() {
+            let price;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
                 let value = convertWeiToEth(res.toString());
                 console.log(value);
-                cost = value;
-            })
+                price = value;
+            });
+            return price;
         }
 
         async function getWhitelistLimit() {
