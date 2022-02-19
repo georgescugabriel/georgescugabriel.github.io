@@ -385,37 +385,55 @@
         async function getSupply() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.totalSupply().then((res) => {jQuery("#supply").html("Sold: " + res + " / " + supply.toString());})
+            contract.totalSupply().then((res) => {
+                console.log(res);
+                jQuery("#supply").html("Sold: " + res + " / " + supply.toString());
+            })
         }
 
         async function getMaxTokens() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.MAX_TOKENS().then((res) => {supply = res;})
+            contract.MAX_TOKENS().then((res) => {
+                console.log(res);
+                supply = res;
+            })
         }
 
         async function getPublicSalePrice() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.PUBLIC_PRICE().then((res) => {cost = convertWeiToEth(res);})
+            contract.PUBLIC_PRICE().then((res) => {
+                console.log(res);
+                cost = convertWeiToEth(res);
+            })
         }
 
         async function getWhitelistPrice() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.WL_PRICE().then((res) => {cost = convertWeiToEth(res);})
+            contract.WL_PRICE().then((res) => {
+                console.log(res);
+                cost = convertWeiToEth(res);
+            })
         }
 
         async function getWhitelistLimit() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.WL_SALE_MAX_TOKENS().then((res) => {wlMaxSale = res;})
+            contract.WL_SALE_MAX_TOKENS().then((res) => {
+                console.log(res);
+                wlMaxSale = res;
+            })
         }
 
         async function getWhitelistTotalSupply() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.WL_MAX_WALLET().then((res) => {maxNFT = res;})
+            contract.WL_MAX_WALLET().then((res) => {
+                console.log(res);
+                maxNFT = res;
+            })
         }
 
         async function isInWhitelist() {
@@ -423,7 +441,10 @@
             let is_whitelist = false;
             let address = await signer.getAddress()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.isWhitelisted(address).then((res) => {is_whitelist = res;})
+            contract.isWhitelisted(address).then((res) => {
+                console.log(res);
+                is_whitelist = res;
+            })
             return is_whitelist;
         }
 
@@ -436,7 +457,10 @@
         async function isPublicSaleActive() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.saleIsActive().then((res) => {public_sale = res;})
+            contract.saleIsActive().then((res) => {
+                console.log(res);
+                public_sale = res;
+            })
         }
 
         async function mintToken() {
