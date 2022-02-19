@@ -402,9 +402,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
-                console.log(res);
-                console.log(res.toString());
-                cost = convertWeiToEth(res);
+                cost = convertWeiToEth(res.toString());
             })
         }
 
@@ -412,8 +410,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
-                console.log(res);
-                cost = convertWeiToEth(res);
+                cost = convertWeiToEth(res.toString());
             })
         }
 
