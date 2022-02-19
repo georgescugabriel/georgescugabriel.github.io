@@ -356,7 +356,7 @@
                 jQuery("#max_mint").html(maxNFT);
                 jQuery("#max_type").html("Wallet");
                 jQuery("#token_price").html(cost);
-                jQuery("#whitelist_max_supply").html("Max whitelist:" + wlMaxSale).removeClass("hidden");
+                jQuery("#whitelist_max_supply").html("Max whitelist: " + wlMaxSale).removeClass("hidden");
                 is_whitelisted = isInWhitelist();
             } else if(public_sale) {
                 cost = getPublicSalePrice();
@@ -386,7 +386,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.totalSupply().then((res) => {
-                console.log("getSupply res:" + res);
                 jQuery("#supply").html("Sold: " + res + " / " + supply.toString());
             })
         }
@@ -400,7 +399,7 @@
             })
         }
 
-        function getPublicSalePrice() {
+        async function getPublicSalePrice() {
             let price;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
@@ -411,7 +410,7 @@
             return price;
         }
 
-        function getWhitelistPrice() {
+        async function getWhitelistPrice() {
             let price;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
@@ -449,7 +448,7 @@
                 console.log("isInWhitelist res:" + res);
                 is_whitelist = res;
             })
-            return is_whitelist;
+            return getBool(is_whitelist);
         }
 
         async function isWhitelistSaleActive() {
@@ -460,7 +459,7 @@
                 console.log("isWhitelistSaleActive res:" + res);
                 wl_sale = res.toString();
             })
-            return wl_sale;
+            return getBool(wl_sale);
         }
 
         async function isPublicSaleActive() {
@@ -471,7 +470,7 @@
                 console.log("isPublicSaleActive res:" + res);
                 public_sale = res.toString();
             });
-            return public_sale;
+            return getBool(public_sale);
         }
 
         async function mintToken() {
@@ -518,6 +517,9 @@
 
         function convertWeiToEth(value) {
             return value/1000000000000000000;
+        }
+        function getBool(val) {
+            return !!JSON.parse(String(val).toLowerCase());
         }
     </script>
 </div>
