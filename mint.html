@@ -118,7 +118,6 @@
     <script>
         let maxNFT = 4;
         let wlMaxSale = 2000;
-        let buttonId = "connect";
         const contractAddress = "0x3Ee2Bb0eCE09bDb3a390b5f9C0746C2f41491a4D";
         let cost = 0.08;
         let nftNumField = jQuery("#quantity");
@@ -131,9 +130,7 @@
 
         let wl_sale = false;
         let public_sale = false;
-
         let supply = 6999
-
         let nftNum = 1
 
 
@@ -402,7 +399,9 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
-                cost = convertWeiToEth(res.toString());
+                let value = convertWeiToEth(res.toString());
+                console.log(value);
+                cost = value;
             })
         }
 
@@ -410,7 +409,9 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
-                cost = convertWeiToEth(res.toString());
+                let value = convertWeiToEth(res.toString());
+                console.log(value);
+                cost = value;
             })
         }
 
@@ -418,7 +419,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_SALE_MAX_TOKENS().then((res) => {
-                console.log(res);
                 wlMaxSale = res;
             })
         }
@@ -427,7 +427,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_MAX_WALLET().then((res) => {
-                console.log(res);
                 maxNFT = res;
             })
         }
@@ -438,7 +437,6 @@
             let address = await signer.getAddress()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.isWhitelisted(address).then((res) => {
-                console.log(res);
                 is_whitelist = res;
             })
             return is_whitelist;
