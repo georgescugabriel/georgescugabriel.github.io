@@ -404,7 +404,9 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
+                console.log(ethers.BigNumber(res));
                 console.log(res);
+                console.log(res.toString());
                 cost = convertWeiToEth(res);
             })
         }
