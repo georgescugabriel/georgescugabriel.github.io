@@ -344,10 +344,12 @@
             isWhitelistSaleActive();
             isPublicSaleActive();
             getSupply()
+            console.log("Init Cost: " + cost);
             jQuery("#connect_wallet").hide();
 
             if (wl_sale) {
                 cost = getWhitelistPrice();
+                console.log("WL Cost: " + cost);
                 getWhitelistTotalSupply();
                 getWhitelistLimit();
                 jQuery("#title_header").html("Whitelist Mint");
@@ -357,8 +359,9 @@
                 jQuery("#whitelist_max_supply").html("Max whitelist:" + wlMaxSale).removeClass("hidden");
                 is_whitelisted = isInWhitelist();
             } else if(public_sale) {
-                maxNFT = 10;
                 cost = getPublicSalePrice();
+                console.log("Public Sale Cost: " + cost);
+                maxNFT = 10;
                 jQuery("#title_header").html("Public Sale Mint");
                 jQuery("#token_price").html(cost);
                 jQuery("#max_mint").html(maxNFT);
@@ -400,10 +403,9 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
-                let value = convertWeiToEth(res.toString());
-                console.log(value);
-                price = value;
+                price = convertWeiToEth(res.toString());
             })
+            return price;
         }
 
         function getWhitelistPrice() {
@@ -411,9 +413,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
-                let value = convertWeiToEth(res.toString());
-                console.log(value);
-                price = value;
+                price = convertWeiToEth(res.toString());
             });
             return price;
         }
@@ -455,6 +455,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.saleIsActive().then((res) => {
+                console.log(res);
                 public_sale = res;
             })
         }
