@@ -342,7 +342,9 @@
 
             getMaxTokens();
             wl_sale = isWhitelistSaleActive();
+            console.log("WL " + wl_sale);
             public_sale = isPublicSaleActive();
+            console.log("PS " + public_sale);
             getSupply()
             console.log("Init Cost: " + cost);
             jQuery("#connect_wallet").hide();
@@ -518,6 +520,7 @@
         function convertWeiToEth(value) {
             return value/1000000000000000000;
         }
+
         function getBool(val) {
             return !!JSON.parse(String(val).toLowerCase());
         }
