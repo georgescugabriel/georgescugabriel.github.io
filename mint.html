@@ -119,7 +119,7 @@
         let maxNFT = 4;
         let wlMaxSale = 2000;
         const contractAddress = "0x3Ee2Bb0eCE09bDb3a390b5f9C0746C2f41491a4D";
-        let cost = 0.08;
+        let cost;
         let nftNumField = jQuery("#quantity");
         jQuery(document).ready(function (){
             jQuery("#supply").html("Sold: please connect");
@@ -347,9 +347,9 @@
             jQuery("#connect_wallet").hide();
 
             if (wl_sale) {
+                getWhitelistPrice();
                 getWhitelistTotalSupply();
                 getWhitelistLimit();
-                getWhitelistPrice();
                 jQuery("#title_header").html("Whitelist Mint");
                 jQuery("#max_mint").html(maxNFT);
                 jQuery("#max_type").html("Wallet");
@@ -358,8 +358,8 @@
                 is_whitelisted = isInWhitelist();
             } else {
                 maxNFT = 10;
-                jQuery("#title_header").html("Public Sale Mint");
                 getPublicSalePrice();
+                jQuery("#title_header").html("Public Sale Mint");
                 jQuery("#token_price").html(cost);
                 jQuery("#max_mint").html(maxNFT);
                 jQuery("#max_type").html("Tx");
