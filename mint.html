@@ -418,7 +418,6 @@
         }
 
         async function isWhitelistSaleActive() {
-            let wl_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.wlSaleIsActive().then((res) => {
@@ -438,7 +437,6 @@
                     });
                 }
             })
-            return getBool(wl_sale);
         }
 
         async function isPublicSaleActive() {
