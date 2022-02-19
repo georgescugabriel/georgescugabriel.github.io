@@ -386,7 +386,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.totalSupply().then((res) => {
-                console.log(res);
                 jQuery("#supply").html("Sold: " + res + " / " + supply.toString());
             })
         }
@@ -395,7 +394,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.MAX_TOKENS().then((res) => {
-                console.log(res);
                 supply = res;
             })
         }
@@ -404,7 +402,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
-                console.log(ethers.BigNumber(res));
                 console.log(res);
                 console.log(res.toString());
                 cost = convertWeiToEth(res);
@@ -460,7 +457,6 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.saleIsActive().then((res) => {
-                console.log(res);
                 public_sale = res;
             })
         }
