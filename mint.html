@@ -395,7 +395,7 @@
             })
         }
 
-        async function getPublicSalePrice() {
+        function getPublicSalePrice() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
@@ -405,7 +405,7 @@
             })
         }
 
-        async function getWhitelistPrice() {
+        function getWhitelistPrice() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
