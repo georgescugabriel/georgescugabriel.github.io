@@ -401,7 +401,7 @@
             })
         }
 
-        async function getPublicSalePrice() {
+        function getPublicSalePrice() {
             let price;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
@@ -412,7 +412,7 @@
             return price;
         }
 
-        async function getWhitelistPrice() {
+        function getWhitelistPrice() {
             let price;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
@@ -423,7 +423,7 @@
             return price;
         }
 
-        async function getWhitelistLimit() {
+        function getWhitelistLimit() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_SALE_MAX_TOKENS().then((res) => {
@@ -432,7 +432,7 @@
             })
         }
 
-        async function getWhitelistTotalSupply() {
+        function getWhitelistTotalSupply() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_MAX_WALLET().then((res) => {
@@ -441,7 +441,7 @@
             })
         }
 
-        async function isInWhitelist() {
+        function isInWhitelist() {
             let signer = provider.getSigner()
             let is_whitelist = false;
             let address = await signer.getAddress()
@@ -453,7 +453,7 @@
             return getBool(is_whitelist);
         }
 
-        async function isWhitelistSaleActive() {
+        function isWhitelistSaleActive() {
             let wl_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
@@ -464,7 +464,7 @@
             return getBool(wl_sale);
         }
 
-        async function isPublicSaleActive() {
+        function isPublicSaleActive() {
             let public_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
