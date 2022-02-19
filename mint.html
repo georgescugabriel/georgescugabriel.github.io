@@ -450,6 +450,8 @@
             let contract = new ethers.Contract(contractAddress, abi, signer)
             let overrides = {value: ethers.utils.parseEther((nftNum * cost).toString())}
 
+            console.log(wl_sale);
+            console.log(public_sale);
             // if(wl_sale) {
             //     contract.mintTokenWlSale(nftNum, overrides).then((res) => {
             //             alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
