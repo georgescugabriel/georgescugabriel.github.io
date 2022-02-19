@@ -77,21 +77,31 @@
                         <h1 class="text-center" id="title_header"></h1>
                     </div>
                     <div class="card-body">
-                        <h2 class="card-title text-center">Price: <span id="token_price"></span> ETH</h2>
-                        <h3 id="supply" class="text-center">Available: 0/6,999</h3>
-                        <h3 id="whitelist_max_supply" class="text-center hidden"></h3>
-                        <label for="quantity" class="text-center col-md-12 col-xs-12 col-lg-12" id="">
-                            Quantity: <span class="text-span-7"><span id="max_mint"></span> Mint Per <span id="max_type"></span></span>
-                        </label>
-                        <select id="quantity" name="quantity" data-name="quantity" required="">
-                        </select>
-                        <h5 class="text-center"><span id="price"></span></h5>
-                        <div class="alert alert-success hidden" id="success">
-                            <div>Thank you! Your submission has been received!</div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12 col-lg-6">
+                                    <img src="https://ipfs.io/ipfs/QmQtSZCtU3B1Z7SY7J74fKs7jH9Vn7ATaWPo5LG4vvGZFz/unrevealed.jpg" alt="image" style="width: 100%" />
+                                </div>
+                                <div class="col-md-6 col-xs-12 col-lg-6">
+                                    <h2 class="card-title text-center">Price: <span id="token_price"></span> ETH</h2>
+                                    <h3 id="supply" class="text-center">Available: 0/6,999</h3>
+                                    <h3 id="whitelist_max_supply" class="text-center hidden"></h3>
+                                    <label for="quantity" class="text-center col-md-12 col-xs-12 col-lg-12" id="">
+                                        Quantity: <span class="text-span-7"><span id="max_mint"></span> Mint Per <span id="max_type"></span></span>
+                                    </label>
+                                    <select id="quantity" name="quantity" data-name="quantity" required="">
+                                    </select>
+                                    <h5 class="text-center"><span id="price"></span></h5>
+                                    <div class="alert alert-success hidden" id="success">
+                                        <div>Thank you! Your submission has been received!</div>
+                                    </div>
+                                    <div class="alert alert-danger hidden" id="fail">
+                                        <div>Oops! Something went wrong while submitting the form.</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="alert alert-danger hidden" id="fail">
-                            <div>Oops! Something went wrong while submitting the form.</div>
-                        </div>
+
                     </div>
                     <div class="card-footer text-muted">
                         <button class="btn btn-aqua col-md-12 col-xs-12 col-lg-12" onclick="connect()" id="connect_wallet">Connect wallet</button>
@@ -325,16 +335,6 @@
             isPublicSaleActive();
             getSupply()
             jQuery("#connect_wallet").hide();
-
-            // if(!wl_sale && !public_sale) {
-            //     jQuery("#minting_close").removeClass("hidden");
-            // } else {
-            //     if(wl_sale && is_whitelisted) {
-            //
-            //     } else {
-            //         jQuery("#mint_button").removeClass("hidden");
-            //     }
-            // }
         }
 
         async function getSupply() {
