@@ -132,6 +132,7 @@
         let public_sale = false;
         let supply = 6999
         let nftNum = 1
+        let is_whitelisted = false;
 
 
         function setNftNum() {
@@ -341,47 +342,20 @@
             let is_whitelisted = false;
 
             getMaxTokens();
-            wl_sale = isWhitelistSaleActive();
-            console.log("WL " + wl_sale);
-            public_sale = isPublicSaleActive();
-            console.log("PS " + public_sale);
+            isWhitelistSaleActive();
+            isPublicSaleActive();
             getSupply()
-            console.log("Init Cost: " + cost);
             jQuery("#connect_wallet").hide();
 
-            if (wl_sale) {
-                cost = getWhitelistPrice();
-                console.log("WL Cost: " + cost);
-                getWhitelistTotalSupply();
-                getWhitelistLimit();
-                jQuery("#title_header").html("Whitelist Mint");
-                jQuery("#max_mint").html(maxNFT);
-                jQuery("#max_type").html("Wallet");
-                jQuery("#token_price").html(cost);
-                jQuery("#whitelist_max_supply").html("Max whitelist: " + wlMaxSale).removeClass("hidden");
-                is_whitelisted = isInWhitelist();
-            } else if(public_sale) {
-                cost = getPublicSalePrice();
-                console.log("Public Sale Cost: " + cost);
-                maxNFT = 10;
-                jQuery("#title_header").html("Public Sale Mint");
-                jQuery("#token_price").html(cost);
-                jQuery("#max_mint").html(maxNFT);
-                jQuery("#max_type").html("Tx");
-            }
-            jQuery("#quantity").empty();
-            for (let i = 1; i <= maxNFT; i++) {
-                jQuery("#quantity").append('<option value="' + i + '">' + i + '</option>');
-            }
-            if(!wl_sale && !public_sale) {
-                jQuery("#minting_close").removeClass("hidden");
-            } else {
-                if(wl_sale && is_whitelisted) {
-                    jQuery("#mint_button").removeClass("hidden");
-                } else {
-                    jQuery("#mint_button").removeClass("hidden");
-                }
-            }
+            // if(!wl_sale && !public_sale) {
+            //     jQuery("#minting_close").removeClass("hidden");
+            // } else {
+            //     if(wl_sale && is_whitelisted) {
+            //
+            //     } else {
+            //         jQuery("#mint_button").removeClass("hidden");
+            //     }
+            // }
         }
 
         async function getSupply() {
@@ -396,83 +370,94 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.MAX_TOKENS().then((res) => {
-                console.log("getMaxTokens res:" + res);
                 supply = res;
             })
         }
 
-        function getPublicSalePrice() {
-            let price;
+        async function getPublicSalePrice() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
-                console.log("getPublicSalePrice res:" + res);
-                price = convertWeiToEth(res.toString());
+                cost = convertWeiToEth(res.toString());
+                jQuery("#token_price").html(cost);
             })
-            return price;
         }
 
-        function getWhitelistPrice() {
-            let price;
+        async function getWhitelistPrice() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
-                console.log("getWhitelistPrice res:" + res);
-                price = convertWeiToEth(res.toString());
+                cost = convertWeiToEth(res.toString());
+                jQuery("#token_price").html(cost);
             });
-            return price;
         }
 
-        function getWhitelistLimit() {
+        async function getWhitelistLimit() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_SALE_MAX_TOKENS().then((res) => {
-                console.log("getWhitelistLimit res:" + res);
                 wlMaxSale = res.toString();
             })
         }
 
-        function getWhitelistTotalSupply() {
+        async function getWhitelistTotalSupply() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_MAX_WALLET().then((res) => {
-                console.log("getWhitelistTotalSupply res:" + res);
                 maxNFT = res.toString();
             })
         }
 
-        function isInWhitelist() {
+        async function isInWhitelist() {
             let signer = provider.getSigner()
-            let is_whitelist = false;
             let address = await signer.getAddress()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.isWhitelisted(address).then((res) => {
-                console.log("isInWhitelist res:" + res);
-                is_whitelist = res;
+                is_whitelisted = res;
             })
-            return getBool(is_whitelist);
         }
 
-        function isWhitelistSaleActive() {
+        async function isWhitelistSaleActive() {
             let wl_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.wlSaleIsActive().then((res) => {
-                console.log("isWhitelistSaleActive res:" + res);
-                wl_sale = res.toString();
+                if(res){
+                    getWhitelistPrice();
+                    getWhitelistTotalSupply();
+                    getWhitelistLimit();
+                    jQuery("#title_header").html("Whitelist Mint");
+                    jQuery("#max_mint").html(maxNFT);
+                    jQuery("#max_type").html("Wallet");
+                    jQuery("#token_price").html(cost);
+                    jQuery("#whitelist_max_supply").html("Max whitelist: " + wlMaxSale).removeClass("hidden");
+                    isInWhitelist().then((res) => {
+                        if(is_whitelisted){
+                            jQuery("#mint_button").removeClass("hidden");
+                        }
+                    });
+                }
             })
             return getBool(wl_sale);
         }
 
-        function isPublicSaleActive() {
-            let public_sale = false;
+        async function isPublicSaleActive() {
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.saleIsActive().then((res) => {
-                console.log("isPublicSaleActive res:" + res);
-                public_sale = res.toString();
+                if(res){
+                    getPublicSalePrice();
+                    maxNFT = 10;
+                    jQuery("#title_header").html("Public Sale Mint");
+                    jQuery("#max_mint").html(maxNFT);
+                    jQuery("#max_type").html("Tx");
+                    jQuery("#quantity").empty();
+                    for (let i = 1; i <= maxNFT; i++) {
+                        jQuery("#quantity").append('<option value="' + i + '">' + i + '</option>');
+                    }
+                    jQuery("#mint_button").removeClass("hidden");
+                }
             });
-            return getBool(public_sale);
         }
 
         async function mintToken() {
@@ -519,10 +504,6 @@
 
         function convertWeiToEth(value) {
             return value/1000000000000000000;
-        }
-
-        function getBool(val) {
-            return !!JSON.parse(String(val).toLowerCase());
         }
     </script>
 </div>
