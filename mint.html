@@ -341,8 +341,8 @@
             let is_whitelisted = false;
 
             getMaxTokens();
-            isWhitelistSaleActive();
-            isPublicSaleActive();
+            wl_sale = isWhitelistSaleActive();
+            public_sale = isPublicSaleActive();
             getSupply()
             console.log("Init Cost: " + cost);
             jQuery("#connect_wallet").hide();
@@ -446,18 +446,21 @@
         }
 
         async function isWhitelistSaleActive() {
+            let wl_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.wlSaleIsActive().then((res) => {wl_sale = res;})
+            return wl_sale;
         }
 
         async function isPublicSaleActive() {
+            let public_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.saleIsActive().then((res) => {
-                console.log(res);
                 public_sale = res;
-            })
+            });
+            return public_sale;
         }
 
         async function mintToken() {
