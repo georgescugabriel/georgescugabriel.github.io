@@ -134,28 +134,6 @@
         let nftNum = 1
         let is_whitelisted = false;
 
-
-        function setNftNum() {
-            let str = nftNumField.val()
-            console.log(str);
-            let n = Math.floor(Number(str))
-            console.log(n);
-            if (n !== Infinity && String(n) === str && n > 0) {
-                if (n > maxNFT) {
-                    alert("Num of NFTs should be <= " + maxNFT.toString())
-                    nftNumField.val(4);
-                    nftNum = 4
-                    return false
-                } else nftNum = n
-            } else {
-                alert("Num of NFTs should be > 0")
-                nftNumField.val(1);
-                nftNum = 1
-                return false
-            }
-            return true
-        }
-
         const abi = [
             {
                 "inputs":[
@@ -460,7 +438,14 @@
         }
 
         async function mintToken() {
-            if (!setNftNum()) return
+            nftNum = jQuery("#quantity").val();
+            if(Math.floor(Number(nftNum)) === 0) {
+                alert("Num of NFTs should be > 0")
+            } else {
+                if(Math.floor(Number(nftNum)) > maxNFT) {
+                    alert("Num of NFTs should be <= " + maxNFT.toString())
+                }
+            }
 
             let contract = new ethers.Contract(contractAddress, abi, signer)
             let overrides = {value: ethers.utils.parseEther((nftNum * cost).toString())}
