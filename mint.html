@@ -137,8 +137,9 @@
 
         function setNftNum() {
             let str = nftNumField.val()
+            console.log(str);
             let n = Math.floor(Number(str))
-
+            console.log(n);
             if (n !== Infinity && String(n) === str && n > 0) {
                 if (n > maxNFT) {
                     alert("Num of NFTs should be <= " + maxNFT.toString())
