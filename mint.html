@@ -386,6 +386,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.totalSupply().then((res) => {
+                console.log("getSupply res:" + res);
                 jQuery("#supply").html("Sold: " + res + " / " + supply.toString());
             })
         }
@@ -394,6 +395,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.MAX_TOKENS().then((res) => {
+                console.log("getMaxTokens res:" + res);
                 supply = res;
             })
         }
@@ -403,6 +405,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.PUBLIC_PRICE().then((res) => {
+                console.log("getPublicSalePrice res:" + res);
                 price = convertWeiToEth(res.toString());
             })
             return price;
@@ -413,6 +416,7 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_PRICE().then((res) => {
+                console.log("getWhitelistPrice res:" + res);
                 price = convertWeiToEth(res.toString());
             });
             return price;
@@ -422,7 +426,8 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_SALE_MAX_TOKENS().then((res) => {
-                wlMaxSale = res;
+                console.log("getWhitelistLimit res:" + res);
+                wlMaxSale = res.toString();
             })
         }
 
@@ -430,7 +435,8 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.WL_MAX_WALLET().then((res) => {
-                maxNFT = res;
+                console.log("getWhitelistTotalSupply res:" + res);
+                maxNFT = res.toString();
             })
         }
 
@@ -440,6 +446,7 @@
             let address = await signer.getAddress()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.isWhitelisted(address).then((res) => {
+                console.log("isInWhitelist res:" + res);
                 is_whitelist = res;
             })
             return is_whitelist;
@@ -449,7 +456,10 @@
             let wl_sale = false;
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
-            contract.wlSaleIsActive().then((res) => {wl_sale = res;})
+            contract.wlSaleIsActive().then((res) => {
+                console.log("isWhitelistSaleActive res:" + res);
+                wl_sale = res.toString();
+            })
             return wl_sale;
         }
 
@@ -458,7 +468,8 @@
             let signer = provider.getSigner()
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.saleIsActive().then((res) => {
-                public_sale = res;
+                console.log("isPublicSaleActive res:" + res);
+                public_sale = res.toString();
             });
             return public_sale;
         }
