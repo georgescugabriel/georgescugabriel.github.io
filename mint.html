@@ -401,6 +401,7 @@
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.wlSaleIsActive().then((res) => {
                 if(res){
+                    wl_sale = true;
                     getWhitelistPrice();
                     getWhitelistTotalSupply();
                     getWhitelistLimit();
@@ -423,6 +424,7 @@
             let contract = new ethers.Contract(contractAddress, abi, signer)
             contract.saleIsActive().then((res) => {
                 if(res){
+                    public_sale = true;
                     getPublicSalePrice();
                     maxNFT = 10;
                     jQuery("#title_header").html("Public Sale Mint");
@@ -452,24 +454,24 @@
 
             console.log(wl_sale);
             console.log(public_sale);
-            // if(wl_sale) {
-            //     contract.mintTokenWlSale(nftNum, overrides).then((res) => {
-            //             alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
-            //         }
-            //     ).catch(function (e) {
-            //         if (JSON.stringify(e).indexOf("underlying network") > -1)
-            //             alert("Sorry, seems your wallet is not connected to ethereum mainnet - are you connected instead to BSC?")
-            //         else if (JSON.stringify(e).indexOf("insufficient funds") > -1)
-            //             alert("Sorry, seems your wallet doesn't have enough funds to make this purchase!")
-            //         else if (JSON.stringify(e).indexOf("Max NFT") > -1)
-            //             alert("Sorry, purchase would exceed limit per wallet!")
-            //         else if (JSON.stringify(e).indexOf("would exceed max supply") > -1)
-            //             alert("Sorry, sold out!")
-            //         else if (!e.message.split("rror=")[1]) alert("Sorry, we could not complete your transaction. " + e.message.split("rror=")[0])
-            //         else alert("Sorry, we could not complete your transaction. " + JSON.parse(e.message.split("rror=")[1].split(", method")[0]).message.replace("execution reverted: ", ""))
-            //     })
-            // }
-            // if(public_sale){
+            if(wl_sale) {
+                contract.mintTokenWlSale(nftNum, overrides).then((res) => {
+                        alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
+                    }
+                ).catch(function (e) {
+                    if (JSON.stringify(e).indexOf("underlying network") > -1)
+                        alert("Sorry, seems your wallet is not connected to ethereum mainnet - are you connected instead to BSC?")
+                    else if (JSON.stringify(e).indexOf("insufficient funds") > -1)
+                        alert("Sorry, seems your wallet doesn't have enough funds to make this purchase!")
+                    else if (JSON.stringify(e).indexOf("Max NFT") > -1)
+                        alert("Sorry, purchase would exceed limit per wallet!")
+                    else if (JSON.stringify(e).indexOf("would exceed max supply") > -1)
+                        alert("Sorry, sold out!")
+                    else if (!e.message.split("rror=")[1]) alert("Sorry, we could not complete your transaction. " + e.message.split("rror=")[0])
+                    else alert("Sorry, we could not complete your transaction. " + JSON.parse(e.message.split("rror=")[1].split(", method")[0]).message.replace("execution reverted: ", ""))
+                })
+            }
+            if(public_sale){
                 contract.mintToken(nftNum, overrides).then((res) => {
                         alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
                     }
@@ -485,7 +487,7 @@
                     else if (!e.message.split("rror=")[1]) alert("Sorry, we could not complete your transaction. " + e.message.split("rror=")[0])
                     else alert("Sorry, we could not complete your transaction. " + JSON.parse(e.message.split("rror=")[1].split(", method")[0]).message.replace("execution reverted: ", ""))
                 })
-            // }
+            }
         }
 
         function convertWeiToEth(value) {
