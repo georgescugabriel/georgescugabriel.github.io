@@ -1047,7 +1047,7 @@ $(document).ready(function() {
         responsiveLevels: [1240, 1024, 778, 480],
         navigation: {
             arrows: {
-                enable: true,
+                enable: false,
                 hide_onleave: true,
 				hide_under:1024,
                 style: 'ares',
@@ -1061,7 +1061,7 @@ $(document).ready(function() {
                 drag_block_vertical: true
             },
             bullets: {
-                enable: true,
+                enable: false,
                 style: 'zeus',
                 tmp: '<span class="tp-bullet-image"></span><span class="tp-bullet-imageoverlay"></span>',
                 hide_onleave: true,
