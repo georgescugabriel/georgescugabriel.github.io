@@ -510,7 +510,7 @@ $(document).ready(function() {
 	$('.cube-carousel').cubeportfolio({
         layoutMode: 'slider',
         drag: true,
-        auto: false,
+        auto: true,
         autoTimeout: 5000,
         autoPauseOnHover: true,
         showNavigation: true,
@@ -518,7 +518,7 @@ $(document).ready(function() {
         rewindNav: false,
         scrollByPage: false,
         gridAdjustment: 'responsive',
-        mediaQueries: [{width: 1680, cols: 3}, {width: 1440, cols: 3}, {width: 960, cols: 3}, {width: 720, cols: 2}, {width: 575, cols: 1}, {width: 480, cols: 1}],
+        mediaQueries: [{width: 1680, cols: 6}, {width: 1440, cols: 6}, {width: 960, cols: 6}, {width: 720, cols: 5}, {width: 575, cols: 4}, {width: 480, cols: 3}],
         gapHorizontal: 0,
         gapVertical: 0,
         caption: 'overlayBottomReveal',
