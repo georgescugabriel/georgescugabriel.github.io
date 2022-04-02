@@ -429,7 +429,7 @@
                     public_sale = true;
                     getPublicSalePrice();
                     maxNFT = 10;
-                    jQuery("#title_header").html("Public Sale Mint");
+                    jQuery("#title_header").html("Whitelist Mint");
                     jQuery("#max_mint").html(maxNFT);
                     jQuery("#max_type").html("Tx");
                     jQuery("#quantity").empty();
@@ -454,8 +454,6 @@
             let contract = new ethers.Contract(contractAddress, abi, signer)
             let overrides = {value: ethers.utils.parseEther((nftNum * cost).toString())}
 
-            console.log(wl_sale);
-            console.log(public_sale);
             if(wl_sale) {
                 contract.mintTokenWlSale(nftNum, overrides).then((res) => {
                         alert("Token being minted! After receiving confirmation from your wallet, you can see it at Opensea or on your wallet")
