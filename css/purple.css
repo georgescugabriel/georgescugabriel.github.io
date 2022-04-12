@@ -199,3 +199,13 @@ blockquote.icon-top:before {
         color: #7e86b5 !important;
     }
 }
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

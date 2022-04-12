@@ -15,37 +15,35 @@
 </head>
 <body>
 <div class="content-wrapper">
-    <nav class="navbar wide transparent absolute inverse-text text-uppercase navbar-expand-lg">
+    <nav class="navbar wide absolute inverse-text text-uppercase navbar-expand-lg bg-dark">
         <div class="container-fluid flex-row justify-content-center">
             <div class="navbar-header">
-                <div class="navbar-brand"><a href="/"><img src="#"
-                                                           srcset="images/logo2-light.png 1x, images/logo2-light@2x.png 2x"
-                                                           alt=""/></a></div>
                 <div class="navbar-hamburger ml-auto d-lg-none d-xl-none">
                     <button class="hamburger animate" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span></span></button>
+                        <span></span>
+                    </button>
                 </div>
             </div>
             <!-- /.navbar-header -->
-            <div class="navbar-collapse collapse justify-content-between align-items-center">
-                <ul class="navbar-nav plain mx-auto text-center">
+            <div class="navbar-collapse collapse justify-content-between align-items-start">
+                <ul class="navbar-nav plain text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html#top">Home</a>
+                        <a class="nav-link" href="/#top">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html#about">About</a>
+                        <a class="nav-link" href="/#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html#sneak_peek">Sneak Peek</a>
+                        <a class="nav-link" href="/#sneak_peek">Sneak Peek</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html#roadmap">Roadmap</a>
+                        <a class="nav-link" href="/#roadmap">Roadmap</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html#faq">FAQ</a>
+                        <a class="nav-link" href="/#faq">FAQ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html#team">Team</a>
+                        <a class="nav-link" href="/#team">Team</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/mint.html">Mint</a>
@@ -74,17 +72,17 @@
         <div class="container inner pt-120 pb-120">
             <h2 class="section-title mb-40 text-center">Mint</h2>
             <div class="row">
-                <div class="card text-white bg-dark mb-3 col-md-12 col-xs-12 col-lg-12 p-0">
+                <div class="card text-white bg-dark mb-3 col-md-7 col-xs-12 col-lg-7 p-0 m-auto">
                     <div class="card-header">
                         <h1 class="text-center" id="title_header"></h1>
                     </div>
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-6 col-xs-12 col-lg-6">
+                                <div class="col-md-4 col-xs-12 col-lg-4">
                                     <img src="/images/preview.gif" alt="image" style="width: 100%" />
                                 </div>
-                                <div class="col-md-6 col-xs-12 col-lg-6">
+                                <div class="col-md-8 col-xs-12 col-lg-8">
                                     <h2 class="card-title text-center">Price: <span id="token_price"></span> ETH</h2>
                                     <h3 id="supply" class="text-center">Available: 0/6,999</h3>
                                     <h3 id="whitelist_max_supply" class="text-center hidden"></h3>
@@ -429,7 +427,7 @@
                     public_sale = true;
                     getPublicSalePrice();
                     maxNFT = 10;
-                    jQuery("#title_header").html("Whitelist Mint");
+                    jQuery("#title_header").html("Public Sale Mint");
                     jQuery("#max_mint").html(maxNFT);
                     jQuery("#max_type").html("Tx");
                     jQuery("#quantity").empty();
